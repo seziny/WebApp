@@ -1,0 +1,43 @@
+<h1>My Demo Library App</h1>
+<div ng-show="authenticated">
+
+    <!--This is a comment. Comments are not displayed in the browser
+    <p>The ID is {{controller.greeting.id}}</p>
+    <p>The content is {{controller.greeting.content}}</p>
+    -->
+    <p>Hello {{controller.currentUserName}}!</p>
+    <p>You can add new books to your library here:</p>
+
+    <form ng-submit="controller.saveBook()">
+        <div class="form-group">
+            <label>Title</label>
+            <input ng-model="controller.book.title" ng-required="true" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Author</label>
+            <input ng-model="controller.book.author" ng-required="true" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Publication Year</label>
+            <input type="text" ng-model="controller.book.year" class="form-control">
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-default btn-lg" value="Save Book to My Library">
+        </div>
+
+
+    </form>
+
+    <div class="alert alert-success" ng-show="controller.success">
+        Book saved!
+    </div>
+    <!-- <pre>{{controller.book|json}}</pre>
+    <h2>Your Current List of Books</h2>
+    <ul>
+        <li ng-repeat="message in controller.messages">{{message.title}}</li>
+    </ul> -->
+ </div>
+
+ <div ng-show="!authenticated">
+     <p>Login to access your library</p>
+ </div>

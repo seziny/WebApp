@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-resource.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-route.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-cookies.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.2.4/ui-bootstrap-tpls.min.js"></script>
+    <link href="css/angular-bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+        [ng\:cloak], [ng-cloak], .ng-cloak {
+            display: none !important;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>Hello World</title>
+</head>
+<body ng-app="hello" ng-cloak class="ng-cloak">
+<div ng-controller="navigation as nav" class="container">
+    <ul class="nav nav-pills" role="tablist">
+        <li class="active"><a href="#/">Home</a></li>
+        <li ng-show="!authenticated"><a href="#/login">Login</a></li>
+        <li ng-show="authenticated">
+            <a href="#/mybooks">My Books</a>
+        </li>
+        <li ng-show="authenticated">
+            <a href="" ng-click="nav.logout()">Logout</a>
+        </li>
+    </ul>
+</div>
+<div ng-view class="container"></div>
+<script src="js/angular-bootstrap.js" type="text/javascript"></script>
+<script src="js/hello.js"></script>
+</body>
+</html>
