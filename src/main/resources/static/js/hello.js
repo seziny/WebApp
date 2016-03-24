@@ -101,8 +101,8 @@ angular.module('hello', ['ngRoute', 'ngResource', 'ngCookies'])
         var self = this;
         self.register = function(){
             var User = $resource('/account');
-            User.save(self.user).success(function(){
-
+            User.save(self.user, function(data){
+                self.success = true;
             });
         };
 
