@@ -28,18 +28,34 @@ angular.module('hello', ['ngRoute', 'ngResource', 'ngCookies'])
         var self = this;
         $http.get('/resource/').success(function(data){
             self.greeting = data;
-        });
-        self.currentUserName = $cookies.get("username");
 
-        //self.messages = [];
-        self.saveBook = function(){
-            //var BookRecord = $resource('/account/', {username : self.currentUserName});
-            //BookRecord.save(self.book);
-            $http.put('/account/' + self.currentUserName , self.book).success(function(data){
-                self.success = true;
-                //self.messages.push({type:'success', msg: 'Book Saved!'});
-            });
-        };
+            self.currentUserName = $cookies.get("username");
+
+            //self.messages = [];
+            self.saveBook = function(){
+                //var BookRecord = $resource('/account/', {username : self.currentUserName});
+                //BookRecord.save(self.book);
+                var request = {
+                    userName: self.currentUserName,
+                    title: self.book.title,
+                    author: self.book.author,
+                    year: self.book.year
+                };
+                $http.post('api/books/add', request).success(function(data){
+
+                    if(data){
+                        self.success = true;
+                    } if(data == null){
+                        self.success = false;
+                    }
+                    console.log(data);
+                    //self.messages.push({type:'success', msg: 'Book Saved!'});
+                }). error(function(err){
+                    console.log(err);
+                });
+            };
+
+        });
 
 
     })
@@ -47,9 +63,10 @@ angular.module('hello', ['ngRoute', 'ngResource', 'ngCookies'])
         var self = this;
         self.messages = [];
         self.currentUserName = $cookies.get("username");
-        $http.get('/account/' + self.currentUserName).success(function(data){
+        $http.get('api/books/getAll/' + self.currentUserName).success(function(data){
 
             self.messages = data;
+            console.log(data);
         })
 
     })
@@ -63,14 +80,17 @@ angular.module('hello', ['ngRoute', 'ngResource', 'ngCookies'])
                 if(data.name){
                     $rootScope.authenticated = true;
                     $rootScope.username = data.username;
+                    if (typeof callback == "function") {
+                        callback() && callback();
+                    }
+
                 } else{
                     $rootScope.authenticated = false;
+                    if (typeof callback == "function") {
+                        callback() && callback();
+                    }
                 }
-                callback() && callback();
-            }).error(function(){
-                $rootScope.authenticated = false;
-                callback() && callback();
-            });
+            })
         };
 
         authenticate();
@@ -101,7 +121,9 @@ angular.module('hello', ['ngRoute', 'ngResource', 'ngCookies'])
         var self = this;
         self.register = function(){
             var User = $resource('/account');
-            User.save(self.user).success(function(){
+            User.save(self.user, function(data){
+                    self.success = data;
+
 
             });
         };

@@ -25,6 +25,10 @@ public class Book {
     @Max(9999)
     private int year;
 
+    private String userId;
+    private String userName;
+
+
     public Book() {
     }
 
@@ -71,5 +75,21 @@ public class Book {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }
